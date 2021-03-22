@@ -22,6 +22,6 @@ class Polynomial;
 class MultiplyStrategy {
   public:
     virtual ~MultiplyStrategy() {};
-    virtual Polynomial polynomialMultiply(Polynomial* polynomialA, Polynomial* polynomialB) = 0;
+    virtual Polynomial polynomialMultiply(Polynomial& polynomialA, Polynomial& polynomialB) = 0;
 };
 //#endif // MULTIPLY_STRATEGY_H

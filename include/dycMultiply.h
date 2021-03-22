@@ -21,5 +21,5 @@
 class Polynomial;
 class DyCMultiply : public MultiplyStrategy {
   public:
-    Polynomial polynomialMultiply(Polynomial* polynomialA, Polynomial* polynomialB);
+    Polynomial polynomialMultiply(Polynomial& polynomialA, Polynomial& polynomialB);
 };

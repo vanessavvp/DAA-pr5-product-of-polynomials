@@ -17,8 +17,8 @@
 
 int main () {
   int size = 4;
-  Polynomial* polynomialA = new Polynomial(size);
-  Polynomial* polynomialB = new Polynomial(size);
+  Polynomial polynomialA(size);
+  Polynomial polynomialB(size);
   Polynomial polynomialC(size);
   MultiplyStrategy* classicMultiply = new ClassicMultiply;
   //MultiplyStrategy* dyvMultiply = new DyVMultiply;

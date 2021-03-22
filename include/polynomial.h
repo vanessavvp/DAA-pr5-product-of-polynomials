@@ -40,8 +40,6 @@ class Polynomial {
 };
 
 std::ostream& operator<<(std::ostream &sout, Polynomial &p);
-std::ostream& operator<<(std::ostream &sout, Polynomial *p);
-
 Polynomial* operator+(Polynomial x, Polynomial y);
 Polynomial* operator-(Polynomial &x, Polynomial &y);
 Polynomial* operator*(Polynomial &x, int exp);

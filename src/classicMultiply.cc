@@ -13,17 +13,17 @@
 #include "../include/classicMultiply.h"
 
 
-Polynomial ClassicMultiply::polynomialMultiply(Polynomial* polynomialA, Polynomial* polynomialB) {
-  int newPolynomial[polynomialA->getGrade() + polynomialB->getGrade() + 1];
+Polynomial ClassicMultiply::polynomialMultiply(Polynomial& polynomialA, Polynomial& polynomialB) {
+  int newPolynomial[polynomialA.getGrade() + polynomialB.getGrade() + 1];
   int size = sizeof(newPolynomial) / sizeof(newPolynomial[0]);
 
   for (int i = 0; i < (size + 1); i++) {
     newPolynomial[i] = 0;
   }
 
-  for (int i = 0; i <= polynomialA->getGrade(); i++) {
-    for (int j = 0; j <= polynomialB->getGrade(); j++) {
-      newPolynomial[i + j] += (polynomialA->getMonomial(i) * polynomialB->getMonomial(j));
+  for (int i = 0; i <= polynomialA.getGrade(); i++) {
+    for (int j = 0; j <= polynomialB.getGrade(); j++) {
+      newPolynomial[i + j] += (polynomialA.getMonomial(i) * polynomialB.getMonomial(j));
     } 
   }
   Polynomial result(newPolynomial, size);

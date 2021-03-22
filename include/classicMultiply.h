@@ -20,5 +20,5 @@
 class Polynomial;
 class ClassicMultiply : public MultiplyStrategy {
   public:
-    Polynomial polynomialMultiply(Polynomial* polynomialA, Polynomial* polynomialB);
+    Polynomial polynomialMultiply(Polynomial& polynomialA, Polynomial& polynomialB);
 };

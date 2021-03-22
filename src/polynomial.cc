@@ -87,18 +87,6 @@ std::ostream& operator<<(std::ostream &sout, Polynomial &p) {
   return sout;
 }
 
-std::ostream& operator<<(std::ostream &sout, Polynomial *p) {
-  for (int i = 0; i < p->getPolynomial().size(); i++) {
-    if (i == p->getPolynomial().size() - 1) {
-      sout << p->getPolynomial()[i];
-    }
-    else {
-      sout << p->getPolynomial()[i] << " + ";
-    }
-  }
-  sout << std::endl;
-  return sout;
-}
 
 Polynomial* operator+(Polynomial x, Polynomial y) {
   if (x.getNumberOfTerms() < y.getNumberOfTerms()) {
