@@ -29,17 +29,3 @@ Polynomial ClassicMultiply::polynomialMultiply(Polynomial& polynomialA, Polynomi
   Polynomial result(newPolynomial, size);
   return result;
 }
-
-
-/*
-int aux[P.getGrade() + Q.getGrade() + 1];
-  int size = sizeof(aux)/sizeof(aux[0]);
-  for (int i = 0; i < size + 1; i++) {
-    aux[i] = 0;
-  }
-  for (int i = 0; i <= P.getGrade(); i++) {
-    for (int j = 0; j <= Q.getGrade(); j++) {
-      aux[i + j] += (P.getMonom(i) * Q.getMonom(j)).getCoefficient();
-    }
-  }
-  Polynom result(aux, size);*/

@@ -88,7 +88,7 @@ std::ostream& operator<<(std::ostream &sout, Polynomial &p) {
 }
 
 
-Polynomial* operator+(Polynomial x, Polynomial y) {
+Polynomial* operator+(const Polynomial& x, const Polynomial& y) {
   if (x.getNumberOfTerms() < y.getNumberOfTerms()) {
     x.setZero(y.getNumberOfTerms() - x.getNumberOfTerms());
   } 
@@ -106,7 +106,7 @@ Polynomial* operator+(Polynomial x, Polynomial y) {
 }
 
 
-Polynomial* operator-(Polynomial &x, Polynomial &y) {
+Polynomial* operator-(const Polynomial &x, const Polynomial &y) {
   if (x.getNumberOfTerms() < y.getNumberOfTerms()) {
     x.setZero(y.getNumberOfTerms() - x.getNumberOfTerms());
   } 

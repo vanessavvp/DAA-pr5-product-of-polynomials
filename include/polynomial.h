@@ -25,8 +25,8 @@ class Polynomial {
     Polynomial(int coef[], const int terms); 
     Polynomial(int terms);
     void generateRandomPolynomial();
-    int getNumberOfTerms();
-    int getGrade();
+    int getNumberOfTerms() const;
+    int getGrade() const;
     std::vector<Monomial> getPolynomial();
     void setMonomial(Monomial newMonomial, int i);
     int getMonomial(int index);
