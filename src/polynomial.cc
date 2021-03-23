@@ -19,6 +19,11 @@
 
 Polynomial::Polynomial() {}
 
+Polynomial::~Polynomial() {
+
+}
+
+
 
 Polynomial::Polynomial(int coefficient[], const int terms) {
   numberOfTerms_ = terms;

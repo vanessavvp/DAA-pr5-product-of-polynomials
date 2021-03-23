@@ -38,11 +38,11 @@ int main(int argc, char* argv[]){
     //std::cout << "\n\tPolinomios a multiplicar:";
     //std::cout << "\n-> Polinomio A: " << polynomialA;
     //std::cout << "-> Polinomio B: " << polynomialB;
-    std::cout << "\nMultiplicación Algoritmo Clásico:\n" << "-> Polinomio C: " << polynomialC;
+    std::cout << "\nMultiplicación Algoritmo Clásico:\n";//<< "-> Polinomio C: " << polynomialC;
     std::chrono::duration<float, std::nano> duration = end - start;
     std::cout << "TAMAÑO: " << size;
     std::cout << "\nTIEMPO: " << duration.count() * 1e-9<< " segundos" << std::endl;
-
+    
     Polynomial polynomialD(size);
     MultiplyStrategy* dyvMultiply = new DyCMultiply;
     polynomialA.setStrategy(dyvMultiply);
@@ -52,9 +52,9 @@ int main(int argc, char* argv[]){
     polynomialD = polynomialA * polynomialB;
     auto end2 = std::chrono::system_clock::now();
 
-    std::cout << "\nMultiplicación Algoritmo Divide y Vencerás:\n" << "-> Polinomio D: \n" << polynomialD;
+    std::cout << "\nMultiplicación Algoritmo Divide y Vencerás:\n";// << "-> Polinomio D: \n" << polynomialD;
     std::chrono::duration<float, std::nano> duration2 = end2 - start2;
-    std::cout << "TAMAÑO: " << size << "\n";
+    std::cout << "TAMAÑO: " << size;
     std::cout << "\nTIEMPO: " << duration2.count() * 1e-9 << " segundos" << std::endl;
 	}
 }

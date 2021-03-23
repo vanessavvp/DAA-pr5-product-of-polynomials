@@ -27,6 +27,7 @@ class Polynomial {
     Polynomial(int terms);
     Polynomial(int coefficient[], const int terms); 
     Polynomial(std::vector<Monomial> polynomial, int begin, int end);
+    ~Polynomial();
     std::vector<Monomial> getPolynomial() const;
     int getNumberOfTerms() const;
     Monomial getMonomial(int exponent) const;
