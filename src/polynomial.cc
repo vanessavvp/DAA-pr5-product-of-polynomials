@@ -11,6 +11,10 @@
  */
 
 #include "../include/polynomial.h"
+#include "../include/multiplyStrategy.h"
+#include "../include/monomial.h"
+#include "../include/classicMultiply.h"
+#include "../include/dycMultiply.h"
 
 
 Polynomial::Polynomial() {}
@@ -75,8 +79,11 @@ std::vector<Monomial> Polynomial::getPolynomial() const {
 }
 
 
-void Polynomial::setMonomial(Monomial newMonomial, int i) {
-  polynomial_[i] = newMonomial;
+void Polynomial::setMonomial(Monomial newMonomial) {
+  if(getGrade() < newMonomial.getExponent()) {
+		polynomial_.resize(newMonomial.getExponent() + 1);
+  }
+	polynomial_[newMonomial.getExponent()] = newMonomial;
 }
 
 
@@ -144,6 +151,6 @@ Polynomial Polynomial::operator*(int value) {
   return *this;
 }
 
-Polynomial operator*(Polynomial& polynomA, Polynomial& polynomB) {
+Polynomial operator*(const Polynomial& polynomA, const Polynomial& polynomB) {
   return polynomA.strategy_->polynomialMultiply(polynomA, polynomB);
 }

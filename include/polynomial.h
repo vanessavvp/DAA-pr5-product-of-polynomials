@@ -10,14 +10,17 @@
  *  classic algorithm (Strategy design pattern)
  */
 
-#pragma once
+#ifndef POLYNOMIAL_H
+#define POLYNOMIAL_H
 
 #include <iostream>
 #include <vector>
 
 #include "./monomial.h"
 #include "./multiplyStrategy.h"
+#pragma once
 
+class MultiplyStrategy;
 class Polynomial {
   public:
     Polynomial();
@@ -30,13 +33,13 @@ class Polynomial {
     int getGrade() const;
     void generateRandomPolynomial();
     void setStrategy(MultiplyStrategy* strategy);
-    void setMonomial(Monomial newMonomial, int i);
+    void setMonomial(Monomial newMonomial);
     Polynomial operator*(int value);
 
     friend std::ostream& operator<<(std::ostream &sout, Polynomial &p);
-    friend Polynomial operator+(Polynomial x, Polynomial y);
-    friend Polynomial operator-(Polynomial &x, Polynomial &y);
-    friend Polynomial operator*(Polynomial& polynomA, Polynomial& polynomB);
+    friend Polynomial operator+(const Polynomial& x, const Polynomial& y);
+    friend Polynomial operator-(const Polynomial& x, const Polynomial& y);
+    friend Polynomial operator*(const Polynomial& polynomA, const Polynomial& polynomB);
 
   private:
     int grade_; // grade_ del polinomio
@@ -44,4 +47,5 @@ class Polynomial {
     std::vector<Monomial> polynomial_;
     MultiplyStrategy* strategy_;
 };
+#endif // !POLYNOMIAL_H
 

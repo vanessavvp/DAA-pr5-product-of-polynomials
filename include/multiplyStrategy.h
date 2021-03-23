@@ -9,19 +9,20 @@
  * Purpose: multiplication of polynomials using divide and conquer and
  *  classic algorithm (Strategy design pattern)
  */
-#pragma once
 
-//#ifdef MULTIPLY_STRATEGY_H
-//#define MULTIPLY_STRATEGY_H
+#ifndef MULTIPLY_STRATEGY_H
+#define MULTIPLY_STRATEGY_H
 
 #include <iostream>
 
 #include "./polynomial.h"
+#pragma once
 
 class Polynomial;
 class MultiplyStrategy {
   public:
-    virtual ~MultiplyStrategy() {};
-    virtual Polynomial polynomialMultiply(Polynomial& polynomialA, Polynomial& polynomialB) = 0;
+    MultiplyStrategy();
+    ~MultiplyStrategy();
+    virtual Polynomial polynomialMultiply(const Polynomial& polynomialA, const Polynomial& polynomialB) = 0;
 };
-//#endif // MULTIPLY_STRATEGY_H
+#endif // MULTIPLY_STRATEGY_H

@@ -10,15 +10,17 @@
  *  classic algorithm (Strategy design pattern)
  */
 
-#pragma once
+#ifndef CLASSIC_MULTIPLY_H
+#define CLASSIC_MULTIPLY_H
 
 #include <cmath>
 
 #include "./polynomial.h"
 #include "./multiplyStrategy.h"
+#pragma once
 
-class Polynomial;
 class ClassicMultiply : public MultiplyStrategy {
   public:
-    Polynomial polynomialMultiply(Polynomial& polynomialA, Polynomial& polynomialB);
+    Polynomial polynomialMultiply(const Polynomial& polynomialA, const Polynomial& polynomialB);
 };
+#endif // !CLASSIC_MULTIPLY_H

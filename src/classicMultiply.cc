@@ -11,9 +11,11 @@
  */
 
 #include "../include/classicMultiply.h"
+#include "../include/multiplyStrategy.h"
+#include "../include/monomial.h"
 
 
-Polynomial ClassicMultiply::polynomialMultiply(Polynomial& polynomialA, Polynomial& polynomialB) {
+Polynomial ClassicMultiply::polynomialMultiply(const Polynomial& polynomialA, const Polynomial& polynomialB) {
   int newPolynomial[polynomialA.getGrade() + polynomialB.getGrade() + 1];
   int size = sizeof(newPolynomial) / sizeof(newPolynomial[0]);
 

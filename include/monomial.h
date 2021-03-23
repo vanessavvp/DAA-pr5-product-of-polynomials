@@ -10,10 +10,12 @@
  *  classic algorithm (Strategy design pattern)
  */
 
-#pragma once
+#ifndef MONOMIAL_H
+#define MONOMIAL_H
 
 #include <iostream>
 #include <cmath>
+#pragma once
 
 class Monomial {
   public:
@@ -26,16 +28,17 @@ class Monomial {
     int getExponent() const;
     void setCoefficient(int newCoefficient); 
     void setExponent(int newExponent);
+
+    //Operadores de inserción y extracción
+    friend std::ostream& operator<<(std::ostream &sout, const Monomial &s);
+    friend std::istream& operator>>(std::istream &sin, Monomial &r);
+
+    //Suma dos monommios de mismo exponente
+    friend Monomial operator+(const Monomial &x, const Monomial &y);
+    friend Monomial operator*(const Monomial &x, const Monomial &y);
     
   private:
     int coefficient_;
     int exponent_;
 };
-
-//Operadores de inserción y extracción
-std::ostream& operator<<(std::ostream &sout, const Monomial &s);
-std::istream& operator>>(std::istream &sin, Monomial &r);
-
-//Suma dos monommios de mismo exponente
-Monomial operator+(const Monomial &x, const Monomial &y);
-Monomial operator*(const Monomial &x, const Monomial &y);
+#endif // !MONOMIAL_H

@@ -15,7 +15,6 @@
 
 #include "../include/classicMultiply.h"
 #include "../include/dycMultiply.h"
-#include "../include/monomial.h"
 #include "../include/polynomial.h"
 
 int main(int argc, char* argv[]){
@@ -28,30 +27,34 @@ int main(int argc, char* argv[]){
     Polynomial polynomialB(size);
     Polynomial polynomialC(size);
     MultiplyStrategy* classicMultiply = new ClassicMultiply;
+    polynomialA.setStrategy(classicMultiply);
+    polynomialB.setStrategy(classicMultiply);
 
     auto start = std::chrono::system_clock::now();
-    polynomialC = classicMultiply->polynomialMultiply(polynomialA, polynomialB);
+    polynomialC = polynomialA * polynomialB;
     auto end = std::chrono::system_clock::now();
 
     std::cout << "\nAlgoritmos de multiplicación de polinomios\n";
     //std::cout << "\n\tPolinomios a multiplicar:";
     //std::cout << "\n-> Polinomio A: " << polynomialA;
     //std::cout << "-> Polinomio B: " << polynomialB;
-    std::cout << "\nMultiplicación Algoritmo Clásico:\n"; //<< "-> Polinomio C: " << polynomialC;
+    std::cout << "\nMultiplicación Algoritmo Clásico:\n" << "-> Polinomio C: " << polynomialC;
     std::chrono::duration<float, std::nano> duration = end - start;
     std::cout << "TAMAÑO: " << size;
     std::cout << "\nTIEMPO: " << duration.count() * 1e-9<< " segundos" << std::endl;
 
     Polynomial polynomialD(size);
     MultiplyStrategy* dyvMultiply = new DyCMultiply;
+    polynomialA.setStrategy(dyvMultiply);
+    polynomialB.setStrategy(dyvMultiply);
 
     auto start2 = std::chrono::system_clock::now();
-    //polynomialD = dyvMultiply->polynomialMultiply(polynomialA, polynomialB);
+    polynomialD = polynomialA * polynomialB;
     auto end2 = std::chrono::system_clock::now();
 
-    std::cout << "\nMultiplicación Algoritmo Divide y Vencerás:\n"; //<< "-> Polinomio C: \n"; //<< polynomialF;
+    std::cout << "\nMultiplicación Algoritmo Divide y Vencerás:\n" << "-> Polinomio D: \n" << polynomialD;
     std::chrono::duration<float, std::nano> duration2 = end2 - start2;
     std::cout << "TAMAÑO: " << size << "\n";
-    std::cout << "\nTIEMPO: "; //<< duration2.count() * 1e-9; << " segundos" << std::endl;
+    std::cout << "\nTIEMPO: " << duration2.count() * 1e-9 << " segundos" << std::endl;
 	}
 }
