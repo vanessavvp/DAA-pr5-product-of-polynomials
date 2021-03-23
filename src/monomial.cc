@@ -13,7 +13,10 @@
 #include "../include/monomial.h"
 
 
-Monomial::Monomial() {}
+Monomial::Monomial() {
+  coefficient_ = 0;
+  exponent_ = 0;
+}
 
 
 Monomial::Monomial(int coefficient, int exponent) {
@@ -51,30 +54,30 @@ void Monomial::setExponent(int newExponent) {
 
 
 //Operadores de inserción y extracción
-std::ostream& operator<<(std::ostream &sout, const Monomial &s) {
-  if (s.getExponent() == 0) {
-    sout << s.getCoefficient();
+std::ostream& operator<<(std::ostream &os, const Monomial &monomial) {
+  if (monomial.getExponent() == 0) {
+    os << monomial.getCoefficient();
   }
-  else if (s.getExponent() == 1) {
-    sout << s.getCoefficient() << "x";
+  else if (monomial.getExponent() == 1) {
+    os << monomial.getCoefficient() << "x";
   }
   else  {
-    sout << s.getCoefficient() << "x" << "^" << s.getExponent();
+    os << monomial.getCoefficient() << "x" << "^" << monomial.getExponent();
   }
 
-  return sout;
+  return os;
 }
 
 
-std::istream& operator>>(std::istream &sin, Monomial &r) {
+std::istream& operator>>(std::istream &is, Monomial &monomial) {
   int newCoefficient;
   int newExponent;
-  sin >> newCoefficient >> newExponent;
+  is >> newCoefficient >> newExponent;
 
-  r.setCoefficient(newCoefficient);
-  r.setExponent(newExponent);
+  monomial.setCoefficient(newCoefficient);
+  monomial.setExponent(newExponent);
 
-  return sin;
+  return is;
 }
 
 
@@ -85,6 +88,9 @@ Monomial operator+(const Monomial &x, const Monomial &y) {
   if (x.getExponent() == y.getExponent()) {
     result.setExponent(x.getExponent());
     result.setCoefficient(x.getCoefficient() + y.getCoefficient());
+  }
+  else {
+    std::cout << "\nERROR: Two monomials cannot be added if they have different exponents.\n";
   }
   return result;
 }

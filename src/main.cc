@@ -54,5 +54,4 @@ int main(int argc, char* argv[]){
     std::cout << "TAMAÑO: " << size << "\n";
     std::cout << "\nTIEMPO: "; //<< duration2.count() * 1e-9; << " segundos" << std::endl;
 	}
-  
 }

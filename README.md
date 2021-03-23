@@ -15,28 +15,3 @@ Ejecutar en la terminal `make` para compilar y para ejecutar acompañar el ./mai
 
 
 ### Estructura de directorios
-.
-├── bin
-├── include
-│   ├── classicMultiply.h
-│   ├── dycMultiply.h
-│   ├── monomial.h
-│   ├── multiplyStrategy.h
-│   └── polynomial.h
-├── LICENSE
-├── makefile
-├── photorec.se2
-├── polinomiosdv.pdf
-├── prueba
-├── README.md
-├── slides
-│   ├── Informe_Pr5_VanessaVillalba.pdf
-│   └── polinomiosdv.pdf
-└── src
-    ├── classicMultiply.cc
-    ├── dycMultiply.cc
-    ├── main.cc
-    ├── monomial.cc
-    └── polynomial.cc
-
-4 directories, 18 files

@@ -23,7 +23,7 @@ Polynomial ClassicMultiply::polynomialMultiply(Polynomial& polynomialA, Polynomi
 
   for (int i = 0; i <= polynomialA.getGrade(); i++) {
     for (int j = 0; j <= polynomialB.getGrade(); j++) {
-      newPolynomial[i + j] += (polynomialA.getMonomial(i) * polynomialB.getMonomial(j));
+      newPolynomial[i + j] += (polynomialA.getMonomial(i) * polynomialB.getMonomial(j)).getCoefficient();
     } 
   }
   Polynomial result(newPolynomial, size);

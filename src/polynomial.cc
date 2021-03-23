@@ -16,12 +16,15 @@
 Polynomial::Polynomial() {}
 
 
-Polynomial::Polynomial(int coef[], const int terms) {
+Polynomial::Polynomial(int coefficient[], const int terms) {
   numberOfTerms_ = terms;
   grade_ = (terms - 1); 
+  strategy_ = NULL;
+  polynomial_.resize(numberOfTerms_);
 
   for (int i = 0; i < numberOfTerms_; i++) {
-    polynomial_.push_back(Monomial(coef[i], i));
+    polynomial_[i].setCoefficient(coefficient[i]);
+    polynomial_[i].setExponent(i);
   }
 } 
 
@@ -29,7 +32,23 @@ Polynomial::Polynomial(int coef[], const int terms) {
 Polynomial::Polynomial(int terms) {
   numberOfTerms_ = terms;
   grade_ = (terms - 1);
+  strategy_ = NULL;
   generateRandomPolynomial();
+}
+
+
+Polynomial::Polynomial(std::vector<Monomial> polynomial, int begin, int end) {
+  strategy_ = NULL;
+  polynomial_.resize(end - begin);
+  for (int i = 0; i < (end - begin); i++) {
+    polynomial_[i].setCoefficient(polynomial[i + begin].getCoefficient());
+    polynomial_[i].setExponent(i);
+  }
+}
+
+
+void Polynomial::setStrategy(MultiplyStrategy* strategy) {
+  strategy_ = strategy;
 }
 
 
@@ -41,17 +60,17 @@ void Polynomial::generateRandomPolynomial() {
 }
 
 
-int Polynomial::getNumberOfTerms() {
-  return numberOfTerms_;
+int Polynomial::getNumberOfTerms() const{
+  return polynomial_.size();
 }
 
 
-int Polynomial::getGrade() {
-  return grade_;
+int Polynomial::getGrade() const {
+  return (polynomial_.size() - 1);
 }
 
 
-std::vector<Monomial> Polynomial::getPolynomial() {
+std::vector<Monomial> Polynomial::getPolynomial() const {
   return polynomial_;
 }
 
@@ -61,78 +80,70 @@ void Polynomial::setMonomial(Monomial newMonomial, int i) {
 }
 
 
-int Polynomial::getMonomial(int index) {
-  return polynomial_[index].getCoefficient();
+Monomial Polynomial::getMonomial(int exponent) const {
+  return polynomial_[exponent];
 }
 
 
-void Polynomial::setZero(int size) {
-  for (int i = numberOfTerms_; i < numberOfTerms_ + size; i++) {
-    polynomial_.push_back(Monomial(0, i));
-  }
-  numberOfTerms_ += size;
-}
-
-
-std::ostream& operator<<(std::ostream &sout, Polynomial &p) {
+std::ostream& operator<<(std::ostream &os, Polynomial &p) {
   for (int i = 0; i < p.getPolynomial().size(); i++) {
-    if (i == p.getPolynomial().size() - 1) {
-      sout << p.getPolynomial()[i];
-    }
-    else {
-      sout << p.getPolynomial()[i] << " + ";
+    os << p.polynomial_[i] << " ";
+    if (i != p.getGrade()) {
+      os << "+ ";
     }
   }
-  sout << std::endl;
-  return sout;
+  os << std::endl;
+  return os;
 }
 
 
-Polynomial* operator+(const Polynomial& x, const Polynomial& y) {
-  if (x.getNumberOfTerms() < y.getNumberOfTerms()) {
-    x.setZero(y.getNumberOfTerms() - x.getNumberOfTerms());
-  } 
-  else if (x.getNumberOfTerms() > y.getNumberOfTerms()) {
-    y.setZero(x.getNumberOfTerms() - y.getNumberOfTerms());
+Polynomial operator+(const Polynomial& polynomA, const Polynomial& polynomB) {
+  int polynomAGrade = polynomA.getGrade();
+  int polynomBGrade = polynomB.getGrade();
+  int maxSize = std::max(polynomAGrade, polynomBGrade) + 1 ;
+  int temp[maxSize];
+  for (int i = 0; i < maxSize; i++) {
+    temp[i] = 0;
   }
-
-  int coef[x.getNumberOfTerms()];
-  for (int i = 0; i < x.getNumberOfTerms(); i++) {
-    coef[i] = x.getPolynomial()[i].getCoefficient() + y.getPolynomial()[i].getCoefficient();
+  for (int i = 0; i <= polynomAGrade; i++) {
+    temp[i] = polynomA.getMonomial(i).getCoefficient();
   }
-
-  Polynomial* result = new Polynomial(coef, x.getNumberOfTerms());
+  for (int i = 0; i <= polynomBGrade; i++) {
+    temp[i] += polynomB.getMonomial(i).getCoefficient();
+  }
+  Polynomial result(temp, maxSize);
   return result;
 }
 
 
-Polynomial* operator-(const Polynomial &x, const Polynomial &y) {
-  if (x.getNumberOfTerms() < y.getNumberOfTerms()) {
-    x.setZero(y.getNumberOfTerms() - x.getNumberOfTerms());
-  } 
-  else if (x.getNumberOfTerms() > y.getNumberOfTerms()) {
-    y.setZero(x.getNumberOfTerms() - y.getNumberOfTerms());
+Polynomial operator-(const Polynomial &polynomA, const Polynomial &polynomB) {
+  int polynomAGrade = polynomA.getGrade();
+  int polynomBGrade = polynomB.getGrade();
+  int maxSize = std::max(polynomAGrade, polynomBGrade) + 1 ;
+  int temp[maxSize];
+  for (int i = 0; i < maxSize; i++) {
+    temp[i] = 0;
   }
-
-  int coef[x.getNumberOfTerms()];
-  for (int i = 0; i < x.getNumberOfTerms(); i++) {
-    coef[i] = x.getPolynomial()[i].getCoefficient() - y.getPolynomial()[i].getCoefficient();
+  for (int i = 0; i <= polynomAGrade; i++) {
+    temp[i] = polynomA.getMonomial(i).getCoefficient();
   }
-
-  Polynomial* result = new Polynomial(coef, x.getNumberOfTerms());
+  for (int i = 0; i <= polynomBGrade; i++) {
+    temp[i] -= polynomB.getMonomial(i).getCoefficient();
+  }
+  Polynomial result(temp, maxSize);
   return result;
 }
 
 
-Polynomial* operator*(Polynomial &x, int exp) {
-  int coef[x.getNumberOfTerms() + exp];
-  for (int i = 0; i < exp; i++) {
-    coef[i] = 0;
+Polynomial Polynomial::operator*(int value) {
+  Monomial temp;
+  polynomial_.insert(polynomial_.begin(), value, temp);
+  for (int i = 0; i <= getGrade(); i++) {
+    polynomial_[i].setExponent(i);
   }
-  for (int i = exp; i < (x.getNumberOfTerms() + exp); i++) {
-    coef[i] = x.getPolynomial()[i - exp].getCoefficient();
-  }
+  return *this;
+}
 
-  Polynomial* result = new Polynomial(coef, x.getNumberOfTerms() + exp);
-  return result;
+Polynomial operator*(Polynomial& polynomA, Polynomial& polynomB) {
+  return polynomA.strategy_->polynomialMultiply(polynomA, polynomB);
 }

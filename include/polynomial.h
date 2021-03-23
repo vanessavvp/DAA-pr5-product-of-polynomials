@@ -20,26 +20,28 @@
 
 class Polynomial {
   public:
-    // Constructores
-    Polynomial(); // Constructor por defecto
-    Polynomial(int coef[], const int terms); 
+    Polynomial();
     Polynomial(int terms);
-    void generateRandomPolynomial();
+    Polynomial(int coefficient[], const int terms); 
+    Polynomial(std::vector<Monomial> polynomial, int begin, int end);
+    std::vector<Monomial> getPolynomial() const;
     int getNumberOfTerms() const;
+    Monomial getMonomial(int exponent) const;
     int getGrade() const;
-    std::vector<Monomial> getPolynomial();
+    void generateRandomPolynomial();
+    void setStrategy(MultiplyStrategy* strategy);
     void setMonomial(Monomial newMonomial, int i);
-    int getMonomial(int index);
-    void setZero(int size);
+    Polynomial operator*(int value);
+
+    friend std::ostream& operator<<(std::ostream &sout, Polynomial &p);
+    friend Polynomial operator+(Polynomial x, Polynomial y);
+    friend Polynomial operator-(Polynomial &x, Polynomial &y);
+    friend Polynomial operator*(Polynomial& polynomA, Polynomial& polynomB);
 
   private:
     int grade_; // grade_ del polinomio
     int numberOfTerms_; // Número de términos en el polinomio
     std::vector<Monomial> polynomial_;
-    MultiplyStrategy* multiplyStrategy_;
+    MultiplyStrategy* strategy_;
 };
 
-std::ostream& operator<<(std::ostream &sout, Polynomial &p);
-Polynomial* operator+(Polynomial x, Polynomial y);
-Polynomial* operator-(Polynomial &x, Polynomial &y);
-Polynomial* operator*(Polynomial &x, int exp);
